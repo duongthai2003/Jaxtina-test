@@ -1,12 +1,18 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { LockKeyhole, Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
+import Loading from "~/app/loading";
 import { Button } from "~/components/ui/button";
+import { auth } from "~/lib/firebaseConfig";
+import { setCookie } from "~/lib/storage";
 
 const signinForm = z.object({
   Email: z
@@ -23,6 +29,8 @@ const signinForm = z.object({
 
 export type SigninInput = z.infer<typeof signinForm>;
 function Login() {
+  const router = useRouter();
+  const [loginErrorMess, setLoginErrorMess] = useState<string | null>(null);
   const {
     handleSubmit,
     register,
@@ -34,22 +42,36 @@ function Login() {
   });
 
   async function onSubmit(data: z.infer<typeof signinForm>) {
-    console.log(data);
     try {
-      // const res = await mutation.mutateAsync(data);
-      // setCookie({ name: "token", value: res?.data?.accessToken });
-      // setCookie({ name: "refreshToken", value: res?.data?.refreshToken });
-      // router.push("/home");
+      const res = await signInWithEmailAndPassword(
+        auth,
+        data.Email,
+        data.Password
+      );
+      setCookie({ name: "token", value: await res.user.getIdToken() });
+      setCookie({ name: "refreshToken", value: res.user.refreshToken });
+      setLoginErrorMess(null);
+      router.push("/courses");
     } catch (err) {
       console.log(err);
-      // setErrormess("Incorrect email or password");
+      setLoginErrorMess("Lỗi email hoặc mật khẩu");
     }
   }
+  useEffect(() => {
+    if (loginErrorMess) setLoginErrorMess(null);
+  }, [watch("Email"), watch("Password")]);
 
   return (
     <div className=" h-screen flex justify-center items-center">
-      <div className="w-[350px] bg-[#f9f9f9] border border-[#ccc] rounded-md py-5 px-6 flex flex-col justify-center items-center ">
-        <Image src="/logo.png" alt="logo" width={100} height={100} />
+      <div className=" relative w-[350px] bg-[#f9f9f9] border border-[#ccc] rounded-md py-5 px-6 flex flex-col justify-center items-center ">
+        <Image
+          src="/logo.png"
+          alt="logo"
+          width={100}
+          height={100}
+          priority
+          style={{ height: "auto", width: "auto" }}
+        />
         <p className=" text-[15px] mt-2 text-[#2e3293]">
           The Pioneer in Coaching 4 English Skills
         </p>
@@ -97,12 +119,15 @@ function Login() {
               </span>
             )}
           </div>
+          {loginErrorMess && (
+            <span className="  text-[13px] text-red-500">{loginErrorMess}</span>
+          )}
           <p className=" cursor-pointer text-[14px] underline text-[#2e3293] flex justify-end ">
             Quên mật khẩu?
           </p>
 
           <Button
-            className=" cursor-pointer mt-5 bg-[#ce1e29] hover:bg-[#d22631] text-white "
+            className=" select-none cursor-pointer mt-5 bg-[#ce1e29] hover:bg-[#d22631] text-white "
             type="submit"
             disabled={errors.Email || errors.Password ? true : false}
           >
@@ -115,6 +140,12 @@ function Login() {
             </Link>{" "}
           </p>
         </form>
+        {isLoading ||
+          (isSubmitting && (
+            <div className=" absolute top-0 left-0 w-full h-full flex justify-center items-center">
+              <Loading />
+            </div>
+          ))}
       </div>
     </div>
   );
