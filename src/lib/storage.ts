@@ -3,7 +3,7 @@ export const generateAvatarUrl = (name: string) =>
     name || "undefined null"
   )}&background=random`;
 
-export const createLocalstorage = (key: string, value: unknown) => {
+export const setLocalstorage = (key: string, value: unknown) => {
   window.localStorage.setItem(key, JSON.stringify(value));
 };
 

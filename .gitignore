@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+/src/store/
+/src/config/
+json.tsx
+/src/app/ReduxProvider.tsx
+/src/lib/constants.ts
