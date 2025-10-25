@@ -1,11 +1,14 @@
 "use client";
 import Image from "next/image";
+import Loading from "~/app/loading";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "~/components/ui/popover";
+import { useAuth } from "~/hooks/useAuth";
 function Header() {
+  const { logout, loading } = useAuth();
   return (
     <div className=" flex justify-between px-10 py-2 bg-[#f7f7f7]">
       <Image
@@ -30,8 +33,25 @@ function Header() {
             />
           </div>
         </PopoverTrigger>
-        <PopoverContent>Place content for the popover here.</PopoverContent>
+        <PopoverContent className="px-0 py-1 w-fit">
+          <div
+            className=" px-5 py-1 cursor-pointer hover:bg-[#f7f7f7]"
+            onClick={async () => {
+              await logout();
+            }}
+          >
+            Đăng xuất
+          </div>
+        </PopoverContent>
       </Popover>
+      {loading && (
+        <div
+          className=" fixed inset-0 w-full h-full flex justify-center items-center"
+          style={{ background: " rgba(0, 0, 0, 0.1)" }}
+        >
+          <Loading />
+        </div>
+      )}
     </div>
   );
 }
