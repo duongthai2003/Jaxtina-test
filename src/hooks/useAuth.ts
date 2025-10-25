@@ -69,7 +69,7 @@ export function useAuth() {
     }
   };
 
-  // ✅ Đăng xuất
+  //  Đăng xuất
   const logout = async () => {
     setLoading(true);
     try {
@@ -77,6 +77,7 @@ export function useAuth() {
       clearCookie("token");
       clearCookie("refreshToken");
       setUser(null);
+      router.push("/auth/login");
     } catch (err: any) {
       setErrorMessage(err.message || "Đăng xuất thất bại");
     } finally {
