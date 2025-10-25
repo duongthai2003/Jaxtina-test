@@ -141,3 +141,8 @@ body {
     transform: rotate(360deg);
   }
 }
+.courseItem:hover {
+  transform: translateY(-5px);
+  box-shadow: 2px 2px 7px #d9d1d1;
+  transition: all 0.1s linear;
+}

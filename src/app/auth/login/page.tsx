@@ -27,7 +27,7 @@ const signinForm = z.object({
 
 export type SigninInput = z.infer<typeof signinForm>;
 function Login() {
-  const { login, errorMessage, setErrorMessage } = useAuth();
+  const { login, errorMessage, setErrorMessage, loading } = useAuth();
 
   const {
     handleSubmit,
@@ -126,12 +126,11 @@ function Login() {
             </Link>{" "}
           </p>
         </form>
-        {isLoading ||
-          (isSubmitting && (
-            <div className=" absolute top-0 left-0 w-full h-full flex justify-center items-center">
-              <Loading />
-            </div>
-          ))}
+        {loading && (
+          <div className=" absolute top-0 left-0 w-full h-full flex justify-center items-center">
+            <Loading />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -3,8 +3,7 @@ import HTTP from "~/lib/api";
 
 export function useCourses() {
   const [courses, setCourses] = useState<Course[]>([]);
-  // const [displayedCourses, setdisplayedCourses] = useState<Course[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [filter, setFilter] = useState<string>("All");
   const [searchValue, setSearchValue] = useState<string>("");
@@ -15,7 +14,7 @@ export function useCourses() {
   const getCourses = async () => {
     setLoading(true);
     try {
-      const res = await HTTP.get("/c/9fcb-3722-4b21-9db1");
+      const res = await HTTP.get("/c/64b5-c03a-4b5e-aafe"); ///c/9fcb-3722-4b21-9db1
       setCourses(res.data);
       return res.data;
     } catch (err: any) {
@@ -26,10 +25,7 @@ export function useCourses() {
   };
 
   useEffect(() => {
-    setLoading(true);
     getCourses();
-
-    setLoading(false);
   }, []);
 
   const displayedCourses = useMemo(() => {
