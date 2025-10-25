@@ -1,18 +1,16 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { LockKeyhole, Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import Loading from "~/app/loading";
 import { Button } from "~/components/ui/button";
-import { auth } from "~/lib/firebaseConfig";
-import { setCookie } from "~/lib/storage";
+import { useAuth } from "~/hooks/useAuth";
 
 const signinForm = z.object({
   Email: z
@@ -29,36 +27,24 @@ const signinForm = z.object({
 
 export type SigninInput = z.infer<typeof signinForm>;
 function Login() {
-  const router = useRouter();
-  const [loginErrorMess, setLoginErrorMess] = useState<string | null>(null);
+  const { login, errorMessage, setErrorMessage } = useAuth();
+
   const {
     handleSubmit,
     register,
     formState: { isLoading, isSubmitting, errors },
-    getValues,
+
     watch,
   } = useForm<z.infer<typeof signinForm>>({
     resolver: zodResolver(signinForm),
   });
 
   async function onSubmit(data: z.infer<typeof signinForm>) {
-    try {
-      const res = await signInWithEmailAndPassword(
-        auth,
-        data.Email,
-        data.Password
-      );
-      setCookie({ name: "token", value: await res.user.getIdToken() });
-      setCookie({ name: "refreshToken", value: res.user.refreshToken });
-      setLoginErrorMess(null);
-      router.push("/courses");
-    } catch (err) {
-      console.log(err);
-      setLoginErrorMess("Lỗi email hoặc mật khẩu");
-    }
+    await login(data.Email, data.Password);
   }
+
   useEffect(() => {
-    if (loginErrorMess) setLoginErrorMess(null);
+    if (errorMessage) setErrorMessage(null);
   }, [watch("Email"), watch("Password")]);
 
   return (
@@ -119,8 +105,8 @@ function Login() {
               </span>
             )}
           </div>
-          {loginErrorMess && (
-            <span className="  text-[13px] text-red-500">{loginErrorMess}</span>
+          {errorMessage && (
+            <span className="  text-[13px] text-red-500">{errorMessage}</span>
           )}
           <p className=" cursor-pointer text-[14px] underline text-[#2e3293] flex justify-end ">
             Quên mật khẩu?
