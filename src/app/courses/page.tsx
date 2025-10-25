@@ -12,6 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
+import { useRouter } from "next/navigation";
 
 function Courses() {
   const {
@@ -23,50 +24,55 @@ function Courses() {
     setFilter,
     setSearchValue,
   } = useCourses();
-
+  const router = useRouter();
   return (
     <div className="mt-5">
+      <div className=" flex gap-2 ">
+        <input
+          className="px-2 py-1 outline-none border border-[#ccc] rounded-[8px] "
+          type="text"
+          placeholder="Tìm kiếm..."
+          onChange={(e) => {
+            setSearchValue(e.target.value);
+          }}
+        />
+
+        <Select
+          defaultValue="All"
+          onValueChange={(value) => {
+            setFilter(value);
+            setPage(1);
+          }}
+        >
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Select a course" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectItem value="All">All</SelectItem>
+              <SelectItem value="IELTS">IELTS</SelectItem>
+              <SelectItem value="TOEIC">TOEIC</SelectItem>
+              <SelectItem value="4SKILLS">4SKILLS</SelectItem>
+              <SelectItem value="VSTEP">VSTEP</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
       {loading ? (
         <SkeletonCourse />
       ) : (
         <div>
-          <div className=" flex gap-2 ">
-            <input
-              className="px-2 py-1 outline-none border border-[#ccc] rounded-[8px] "
-              type="text"
-              placeholder="Tìm kiếm..."
-              onChange={(e) => {
-                setSearchValue(e.target.value);
-              }}
-            />
-
-            <Select
-              defaultValue="All"
-              onValueChange={(value) => {
-                setFilter(value);
-                setPage(1);
-              }}
-            >
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Select a course" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectItem value="All">All</SelectItem>
-                  <SelectItem value="IELTS">IELTS</SelectItem>
-                  <SelectItem value="TOEIC">TOEIC</SelectItem>
-                  <SelectItem value="4SKILLS">4SKILLS</SelectItem>
-                  <SelectItem value="VSTEP">VSTEP</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </div>
-          <div className=" grid grid-cols-4 ">
+          <div className=" grid grid-cols-4 mt-5 ">
             {displayedCourses &&
               displayedCourses.map((item, index) => {
                 return (
                   <div key={index} className="px-2 mt-4 ">
-                    <div className="rounded-2xl h-full overflow-hidden bg-[#f7f7f7] cursor-pointer">
+                    <div
+                      className="rounded-2xl h-full overflow-hidden dark:bg-transparent bg-[#f7f7f7] cursor-pointer courseItem dark:border dark:border-[#8b8a8a] "
+                      onClick={() => {
+                        router.push(`/courses/${item.id}`);
+                      }}
+                    >
                       <div className=" overflow-hidden w-full aspect-video">
                         <Image
                           src={item.thumbnail}
@@ -78,7 +84,7 @@ function Courses() {
                         />
                       </div>
                       <div className="text-[14px] px-5 py-4">
-                        <p className=" line-clamp-2 text-[#292929] text-[15px] font-semibold mb-1">
+                        <p className=" line-clamp-2 dark:text-white text-[#292929] text-[15px] font-semibold mb-1">
                           {item.title}
                         </p>
                         <p>
