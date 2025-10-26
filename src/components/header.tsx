@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import Loading from "~/components/loading";
 import {
   Popover,
   PopoverContent,
@@ -11,6 +10,7 @@ import { useTheme } from "next-themes";
 import { Moon, Sun } from "lucide-react";
 import { cn } from "~/lib/utils";
 import Link from "next/link";
+import LoadingIcon from "./LoadingIcon";
 function Header() {
   const { logout, loading } = useAuth();
   const { setTheme, theme } = useTheme();
@@ -76,7 +76,7 @@ function Header() {
           className=" fixed inset-0 w-full h-full flex justify-center items-center"
           style={{ background: " rgba(0, 0, 0, 0.1)" }}
         >
-          <Loading />
+          <LoadingIcon />
         </div>
       )}
     </div>

@@ -1,10 +1,10 @@
 "use client";
 import { cn } from "~/lib/utils";
-type LoadingType = {
+type LoadingIconType = {
   width?: string;
   height?: string;
 };
-function Loading({ width = "25px", height = "25px" }: LoadingType) {
+function LoadingIcon({ width = "25px", height = "25px" }: LoadingIconType) {
   return (
     <div
       className={cn(
@@ -16,4 +16,4 @@ function Loading({ width = "25px", height = "25px" }: LoadingType) {
     </div>
   );
 }
-export default Loading;
+export default LoadingIcon;

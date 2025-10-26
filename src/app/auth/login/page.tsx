@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
-import Loading from "~/components/loading";
+import LoadingIcon from "~/components/LoadingIcon";
 import { Button } from "~/components/ui/button";
 import { useAuth } from "~/hooks/useAuth";
 
@@ -128,7 +128,7 @@ function Login() {
         </form>
         {loading && (
           <div className=" absolute top-0 left-0 w-full h-full flex justify-center items-center">
-            <Loading />
+            <LoadingIcon />
           </div>
         )}
       </div>
