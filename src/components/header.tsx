@@ -10,19 +10,23 @@ import { useAuth } from "~/hooks/useAuth";
 import { useTheme } from "next-themes";
 import { Moon, Sun } from "lucide-react";
 import { cn } from "~/lib/utils";
+import Link from "next/link";
 function Header() {
   const { logout, loading } = useAuth();
   const { setTheme, theme } = useTheme();
+
   return (
-    <div className=" flex justify-between px-10 py-2 dark:bg-transparent bg-[#f7f7f7]">
-      <Image
-        src="https://jaxtina.com/wp-content/themes/jax2024/img/logo.svg"
-        alt="logo"
-        width={100}
-        height={100}
-        priority
-        style={{ height: "auto", width: "169px" }}
-      />
+    <div className=" flex justify-between px-10 py-2 dark:bg-transparent bg-[#f7f7f7] border-b border-[#cccccc30]">
+      <Link href={"/"}>
+        <Image
+          src="https://jaxtina.com/wp-content/themes/jax2024/img/logo.svg"
+          alt="logo"
+          width={100}
+          height={100}
+          priority
+          style={{ height: "auto", width: "169px" }}
+        />
+      </Link>
 
       <div className=" flex gap-5 justify-center items-center">
         <div

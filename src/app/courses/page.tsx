@@ -1,9 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useCourses } from "~/hooks/useCourse";
-
 import PaginationPage from "../../components/paginaiton";
-import { Skeleton } from "~/components/ui/skeleton";
 import {
   Select,
   SelectContent,
@@ -12,7 +10,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { SkeletonCourse } from "~/components/LoadingSkeleton";
 
 function Courses() {
   const {
@@ -24,7 +23,7 @@ function Courses() {
     setFilter,
     setSearchValue,
   } = useCourses();
-  const router = useRouter();
+
   return (
     <div className="mt-5">
       <div className=" flex gap-2 ">
@@ -50,10 +49,10 @@ function Courses() {
           <SelectContent>
             <SelectGroup>
               <SelectItem value="All">All</SelectItem>
-              <SelectItem value="IELTS">IELTS</SelectItem>
-              <SelectItem value="TOEIC">TOEIC</SelectItem>
-              <SelectItem value="4SKILLS">4SKILLS</SelectItem>
-              <SelectItem value="VSTEP">VSTEP</SelectItem>
+              <SelectItem value="S">S</SelectItem>
+              <SelectItem value="Pres">Pres</SelectItem>
+              <SelectItem value="TC">TC</SelectItem>
+              <SelectItem value="MTC">MTC</SelectItem>
             </SelectGroup>
           </SelectContent>
         </Select>
@@ -66,19 +65,18 @@ function Courses() {
             {displayedCourses &&
               displayedCourses.map((item, index) => {
                 return (
-                  <div key={index} className="px-2 mt-4 ">
-                    <div
-                      className="rounded-2xl h-full overflow-hidden dark:bg-transparent bg-[#f7f7f7] cursor-pointer courseItem dark:border dark:border-[#8b8a8a] "
-                      onClick={() => {
-                        router.push(`/courses/${item.id}`);
-                      }}
-                    >
+                  <Link
+                    href={`/courses/${item.id}`}
+                    key={index}
+                    className="px-2 mt-4 "
+                  >
+                    <div className="rounded-2xl h-full overflow-hidden dark:bg-transparent bg-[#f7f7f7] cursor-pointer courseItem dark:border dark:border-[#8b8a8a] ">
                       <div className=" overflow-hidden w-full aspect-video">
                         <Image
                           src={item.thumbnail}
                           alt="logo"
-                          width={200}
-                          height={200}
+                          width={400}
+                          height={400}
                           priority
                           className=" w-full h-full"
                         />
@@ -109,7 +107,7 @@ function Courses() {
                         </p>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 );
               })}
           </div>
@@ -127,17 +125,3 @@ function Courses() {
 }
 
 export default Courses;
-
-function SkeletonCourse() {
-  return (
-    <div className=" grid grid-cols-4 ">
-      {new Array(8).fill(1).map((_, index) => {
-        return (
-          <div key={index} className="px-2 mt-4  ">
-            <Skeleton className="rounded-2xl h-60 overflow-hidden" />
-          </div>
-        );
-      })}
-    </div>
-  );
-}
