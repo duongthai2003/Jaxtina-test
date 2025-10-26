@@ -151,3 +151,7 @@ body {
   box-shadow: 2px 2px 7px #d9d1d1;
   transition: all 0.1s linear;
 }
+
+.dark .courseItem:hover {
+  box-shadow: 2px 2px 7px #d9d1d147;
+}

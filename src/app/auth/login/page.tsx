@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
-import Loading from "~/app/loading";
+import Loading from "~/components/loading";
 import { Button } from "~/components/ui/button";
 import { useAuth } from "~/hooks/useAuth";
 
@@ -48,8 +48,8 @@ function Login() {
   }, [watch("Email"), watch("Password")]);
 
   return (
-    <div className=" h-screen flex justify-center items-center">
-      <div className=" relative w-[350px] bg-[#f9f9f9] border border-[#ccc] rounded-md py-5 px-6 flex flex-col justify-center items-center ">
+    <div className=" container h-screen m-auto flex justify-center items-center">
+      <div className=" overflow-hidden relative w-[350px] bg-[#f9f9f9] border border-[#ccc] rounded-md py-5 px-6 flex flex-col justify-center items-center mx-3 sm:mx-0">
         <Image
           src="/logo.png"
           alt="logo"
@@ -113,7 +113,7 @@ function Login() {
           </p>
 
           <Button
-            className=" select-none cursor-pointer mt-5 bg-[#ce1e29] hover:bg-[#d22631] text-white "
+            className=" min-h-11 text-[18px] select-none cursor-pointer mt-5 bg-[#ce1e29] hover:bg-[#d22631] text-white "
             type="submit"
             disabled={errors.Email || errors.Password ? true : false}
           >

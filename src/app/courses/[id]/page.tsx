@@ -24,7 +24,7 @@ function CourseDetail({ params }: Props) {
   }, [id, courses]);
 
   return (
-    <div className="relative mt-5 px-20">
+    <div className="relative mt-5 px-0 md:px-3 lg:px-20">
       {course ? (
         <div className=" mb-16  ">
           <div className=" flex justify-center">
@@ -39,13 +39,13 @@ function CourseDetail({ params }: Props) {
             </div>
           </div>
 
-          <div>
-            <div className=" flex justify-between items-center mt-11">
-              <h1 className=" text-3xl  font-semibold text-center ">
+          <div className="px-2 md:px-0">
+            <div className=" flex justify-between items-start md:items-center mt-11 flex-col md:flex-row  ">
+              <h1 className="text-[20px] md:text-3xl  font-semibold text-center ">
                 {course.title}
               </h1>
               <div
-                className=" cursor-pointer flex gap-2 items-center border px-5 rounded-md min-h-11 hover:bg-[#e3d5d51a]"
+                className=" cursor-pointer flex gap-2 items-center border px-5 rounded-md min-h-11 hover:bg-[#e3d5d51a] mt-5 md:mt-0"
                 onClick={() => {
                   navigator.clipboard.writeText(courseUrl);
                   setIsCoppy(true);
@@ -64,16 +64,16 @@ function CourseDetail({ params }: Props) {
               <p>Mục tiêu: {course.description}</p>
             </div>
           </div>
-          <div className="mt-5">
+          <div className="mt-7 px-2 md:px-0">
             <h2 className=" text-xl font-semibold ">Nội dung khóa học</h2>
             <div className=" text-[13px] mt-2 flex  items-center ">
-              <h3 className="pr-2 border-r border-white">
+              <h3 className="pr-2 border-r dark:border-[#616161] border-[#bababa]">
                 Khóa:{" "}
                 <span className=" text-[#1E40AF] font-semibold">
                   {course.kindOfCourse}
                 </span>
               </h3>
-              <p className="px-2 border-r border-white">
+              <p className="px-2 border-r dark:border-[#616161] border-[#bababa]">
                 Lớp:{" "}
                 <span className="text-[#1E40AF]   font-semibold">
                   {course.level}
@@ -93,7 +93,7 @@ function CourseDetail({ params }: Props) {
                   <Link
                     href={`./${id}/lessons/${item.id}`}
                     key={index}
-                    className="mt-1 flex items-center justify-between px-4 border-b py-1 border-[#00000008] cursor-pointer rounded-[8px] dark:bg-[#ffffff1a] hover:bg-[#e3d5d51a]! gap-5"
+                    className="mt-2 lg:mt-1 flex items-center justify-between px-2 md:px-4 border-b py-1 border-[#00000008] cursor-pointer rounded-[8px] dark:bg-[#ffffff1a] hover:bg-[#e3d5d51a]! gap-5"
                   >
                     <div>
                       <div className=" flex items-center gap-2">
@@ -102,13 +102,13 @@ function CourseDetail({ params }: Props) {
                           {item.order}. {item.title}
                         </p>
                       </div>
-                      <p className="ml-9 text-[13px] text-[#424040] line-clamp-1">
+                      <p className="ml-9 text-[13px] text-[#424040] dark:text-[#8d8d8d] line-clamp-1">
                         {item.description}
                       </p>
                     </div>
-                    <div className=" flex items-center gap-4">
+                    <div className=" flex items-center gap-2 md:gap-4">
                       <p>{item.duration}</p>
-                      <div className="w-[22px]">
+                      <div className="w-[15px]">
                         {item.status === "completed" && (
                           <Check size={15} color="#ce1e29" />
                         )}

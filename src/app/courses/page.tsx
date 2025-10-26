@@ -25,10 +25,10 @@ function Courses() {
   } = useCourses();
 
   return (
-    <div className="mt-5">
-      <div className=" flex gap-2 ">
+    <div className="mt-5 mb-10">
+      <div className=" flex gap-2 px-2 md:px-0 ">
         <input
-          className="px-2 py-1 outline-none border border-[#ccc] rounded-[8px] "
+          className="px-2 py-1 outline-none border border-[#ccc] dark:border-[#ffffff26] rounded-[8px] min-h-11 "
           type="text"
           placeholder="Tìm kiếm..."
           onChange={(e) => {
@@ -43,7 +43,7 @@ function Courses() {
             setPage(1);
           }}
         >
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="w-[180px] min-h-11">
             <SelectValue placeholder="Select a course" />
           </SelectTrigger>
           <SelectContent>
@@ -61,7 +61,7 @@ function Courses() {
         <SkeletonCourse />
       ) : (
         <div>
-          <div className=" grid grid-cols-4 mt-5 ">
+          <div className=" grid grid-cols-1 md:grid-cols-3  lg:grid-cols-4 mt-5 ">
             {displayedCourses &&
               displayedCourses.map((item, index) => {
                 return (
@@ -70,7 +70,7 @@ function Courses() {
                     key={index}
                     className="px-2 mt-4 "
                   >
-                    <div className="rounded-2xl h-full overflow-hidden dark:bg-transparent bg-[#f7f7f7] cursor-pointer courseItem dark:border dark:border-[#8b8a8a] ">
+                    <div className="rounded-2xl h-full overflow-hidden dark:bg-transparent bg-[#f7f7f7] cursor-pointer courseItem dark:border dark:border-[#cccccc30]   ">
                       <div className=" overflow-hidden w-full aspect-video">
                         <Image
                           src={item.thumbnail}
@@ -81,7 +81,7 @@ function Courses() {
                           className=" w-full h-full"
                         />
                       </div>
-                      <div className="text-[14px] px-5 py-4">
+                      <div className="text-[14px] px-5 py-4 flex flex-col gap-1 md:block">
                         <p className=" line-clamp-2 dark:text-white text-[#292929] text-[15px] font-semibold mb-1">
                           {item.title}
                         </p>

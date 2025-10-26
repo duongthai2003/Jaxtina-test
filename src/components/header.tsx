@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import Loading from "~/app/loading";
+import Loading from "~/components/loading";
 import {
   Popover,
   PopoverContent,
@@ -16,7 +16,7 @@ function Header() {
   const { setTheme, theme } = useTheme();
 
   return (
-    <div className=" flex justify-between px-10 py-2 dark:bg-transparent bg-[#f7f7f7] border-b border-[#cccccc30]">
+    <div className=" flex justify-between px-6 md:px-10 py-2 dark:bg-transparent bg-[#f7f7f7] border-b border-[#cccccc30]">
       <Link href={"/"}>
         <Image
           src="https://jaxtina.com/wp-content/themes/jax2024/img/logo.svg"
@@ -71,7 +71,6 @@ function Header() {
           </PopoverContent>
         </Popover>
       </div>
-
       {loading && (
         <div
           className=" fixed inset-0 w-full h-full flex justify-center items-center"
