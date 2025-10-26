@@ -1,44 +1,65 @@
 "use client";
 import { useCourses } from "~/hooks/useCourse";
 import Image from "next/image";
-import { use, useMemo } from "react";
-import { Check, CirclePlay } from "lucide-react";
+import { use, useMemo, useState } from "react";
+import { Check, CirclePlay, Copy, CopyCheck } from "lucide-react";
 import Link from "next/link";
-import Loading from "~/app/loading";
+import { CourseDetailSkeleton } from "~/components/LoadingSkeleton";
 interface Props {
   params: Promise<{ id: string }>;
 }
 function CourseDetail({ params }: Props) {
   const { courses, loading } = useCourses();
   const { id } = use(params);
-  console.log(id);
+  const [isCoppy, setIsCoppy] = useState(false);
+  const courseUrl =
+    typeof window !== "undefined"
+      ? `${window.location.origin}/courses/${id}`
+      : "";
+
   const course = useMemo(() => {
-    console.log(courses);
     return courses.find((item) => {
       return item.id === id;
     });
   }, [id, courses]);
 
   return (
-    <div className="min-h-screen relative">
+    <div className="relative mt-5 px-20">
       {course ? (
-        <div className="mt-5 mb-14  ">
+        <div className=" mb-16  ">
           <div className=" flex justify-center">
             <div className="overflow-hidden rounded-md relative   w-full h-[450px] ">
               <Image
                 src={course?.thumbnail}
                 alt="thumbnail"
                 fill
+                priority
                 className="object-cover   "
               />
             </div>
           </div>
 
           <div>
-            <h1 className=" text-3xl mt-11 font-semibold text-center ">
-              {course.title}
-            </h1>
-            <div className="mt-4 flex gap-3 items-center">
+            <div className=" flex justify-between items-center mt-11">
+              <h1 className=" text-3xl  font-semibold text-center ">
+                {course.title}
+              </h1>
+              <div
+                className=" cursor-pointer flex gap-2 items-center border px-5 rounded-md min-h-11 hover:bg-[#e3d5d51a]"
+                onClick={() => {
+                  navigator.clipboard.writeText(courseUrl);
+                  setIsCoppy(true);
+                }}
+              >
+                {isCoppy ? (
+                  <CopyCheck color="#ce1e29" size={18} />
+                ) : (
+                  <Copy color="#ce1e29" size={18} />
+                )}
+                <p>Coppy Link</p>
+              </div>
+            </div>
+            <div className="mt-4 flex gap-3 items-center ">
               <Check size={18} color="#ce1e29" />
               <p>Mục tiêu: {course.description}</p>
             </div>
@@ -100,10 +121,7 @@ function CourseDetail({ params }: Props) {
           </div>
         </div>
       ) : (
-        <div className=" absolute top-0 left-0 w-full h-full flex justify-center items-center">
-          <Loading />
-          <h1 className=" bg-green-600">WWWWW</h1>
-        </div>
+        <CourseDetailSkeleton />
       )}
     </div>
   );

@@ -43,7 +43,7 @@ export function useCourses() {
       return courses.slice(0, end);
     } else {
       const filterCourse = courses.filter((item) => {
-        return item.kindOfCourse === filter;
+        return item.level === filter;
       });
       setTotalPages(Math.ceil(filterCourse.length / itemsPerPage));
 
