@@ -14,7 +14,7 @@ export function useCourses() {
   const getCourses = async () => {
     setLoading(true);
     try {
-      const res = await HTTP.get("/c/64b5-c03a-4b5e-aafe"); ///c/9fcb-3722-4b21-9db1
+      const res = await HTTP.get("c/902d-1da2-4afe-8ae2");
       setCourses(res.data);
       return res.data;
     } catch (err: any) {

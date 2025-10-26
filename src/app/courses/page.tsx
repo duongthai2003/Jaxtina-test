@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from "~/components/ui/select";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 function Courses() {
   const {
@@ -66,19 +67,18 @@ function Courses() {
             {displayedCourses &&
               displayedCourses.map((item, index) => {
                 return (
-                  <div key={index} className="px-2 mt-4 ">
-                    <div
-                      className="rounded-2xl h-full overflow-hidden dark:bg-transparent bg-[#f7f7f7] cursor-pointer courseItem dark:border dark:border-[#8b8a8a] "
-                      onClick={() => {
-                        router.push(`/courses/${item.id}`);
-                      }}
-                    >
+                  <Link
+                    href={`/courses/${item.id}`}
+                    key={index}
+                    className="px-2 mt-4 "
+                  >
+                    <div className="rounded-2xl h-full overflow-hidden dark:bg-transparent bg-[#f7f7f7] cursor-pointer courseItem dark:border dark:border-[#8b8a8a] ">
                       <div className=" overflow-hidden w-full aspect-video">
                         <Image
                           src={item.thumbnail}
                           alt="logo"
-                          width={200}
-                          height={200}
+                          width={400}
+                          height={400}
                           priority
                           className=" w-full h-full"
                         />
@@ -109,7 +109,7 @@ function Courses() {
                         </p>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 );
               })}
           </div>
