@@ -40,8 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-/src/store/
-/src/config/
+/src/store/ 
 json.tsx
-/src/app/ReduxProvider.tsx
-/src/lib/constants.ts
+/src/app/ReduxProvider.tsx 
