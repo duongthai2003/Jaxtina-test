@@ -13,7 +13,7 @@ import {
 import Link from "next/link";
 import { SkeletonCourse } from "~/components/LoadingSkeleton";
 import NotFoundIcon from "~/components/NotFoundIcon";
-import PaginationPage from "~/components/Paginaiton";
+import PaginationPage from "~/components/PaginationPage";
 
 function Courses() {
   const {
