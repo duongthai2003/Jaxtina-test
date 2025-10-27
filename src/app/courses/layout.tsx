@@ -14,7 +14,7 @@ export default function CourseLayout({
       </header>
       <div className=" m-auto container px-3 lg:px-0  ">{children}</div>
       <footer>
-        <div className=" gap-0 md:gap-5 flex  justify-between items-center md:items-start flex-col md:flex-row py-5 px-5 md:px-9 lg:px-[120px] pb-10 ">
+        <div className=" gap-0 md:gap-5 flex  justify-between  md:items-start flex-col md:flex-row py-5 px-5 md:px-9 lg:px-[120px] pb-10 ">
           <div className=" flex flex-col items-center md:items-start ju gap-3 max-w-[250px]  lg:max-w-[350px]">
             <Image
               src="/logo.png"
