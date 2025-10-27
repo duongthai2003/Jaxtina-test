@@ -6,6 +6,7 @@ interface Course {
   level: "S" | "Pres" | "TC" | "MTC";
   kindOfCourse: "IELTS" | "TOEIC" | "4SKILLS" | "VSTEP";
   totalLessons: number;
+  totalLessonsCompleted: number;
   progress: number;
   status?: "not-started" | "in-progress" | "completed";
   lessons: Lesson[];

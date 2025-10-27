@@ -12,7 +12,10 @@ function LoadingIcon({ width = "25px", height = "25px" }: LoadingIconType) {
       )}
       style={{ width: width, height: height }}
     >
-      <div className="loader" style={{ width: width, height: height }}></div>
+      <div
+        className="loader loader_rotate"
+        style={{ width: width, height: height }}
+      ></div>
     </div>
   );
 }

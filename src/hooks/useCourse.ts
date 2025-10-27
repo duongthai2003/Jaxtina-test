@@ -14,7 +14,7 @@ export function useCourses() {
   const getCourses = async () => {
     setLoading(true);
     try {
-      const res = await HTTP.get("c/902d-1da2-4afe-8ae2");
+      const res = await HTTP.get("/courses");
       setCourses(res.data);
       return res.data;
     } catch (err: any) {
@@ -35,7 +35,7 @@ export function useCourses() {
         return item.title.toLowerCase().includes(searchValue.toLowerCase());
       });
 
-      // setTotalPages(Math.ceil(courses.length / itemsPerPage));
+      setTotalPages(Math.ceil(filterCourse.length / itemsPerPage));
       return filterCourse.slice(0, end);
     }
     if (filter === "All") {
@@ -49,8 +49,6 @@ export function useCourses() {
 
       return filterCourse.slice(0, end);
     }
-
-    //
   }, [page, courses, filter, searchValue]);
 
   return {
@@ -64,5 +62,59 @@ export function useCourses() {
     setPage,
     getCourses,
     setSearchValue,
+  };
+}
+export function useGetAnCourse(id: string) {
+  const [course, setCourse] = useState<Course | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const getAnCourse = async () => {
+    setLoading(true);
+    try {
+      const res = await HTTP.get(`/courses/${id}`);
+      setCourse(res.data);
+      return res.data;
+    } catch (err: any) {
+      setError(err.message || "Lỗi khi tải khóa học");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getAnCourse();
+  }, [id]);
+
+  return {
+    course,
+    loading,
+    error,
+    refetch: getAnCourse,
+  };
+}
+
+export function useUpdateAnCourse() {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const updateCourse = async (id: string, data: Partial<Course>) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await HTTP.put(`/courses/${id}`, data);
+      return res.data;
+    } catch (err: any) {
+      setError(err.message || "Lỗi khi cập nhật khóa học");
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    updateCourse,
+    loading,
+    error,
   };
 }

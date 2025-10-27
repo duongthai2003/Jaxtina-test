@@ -3,7 +3,7 @@ import { Skeleton } from "./ui/skeleton";
 export function SkeletonCourse() {
   return (
     <div className=" grid grid-cols-1 md:grid-cols-3  lg:grid-cols-4 ">
-      {new Array(8).fill(1).map((_, index) => {
+      {new Array(9).fill(1).map((_, index) => {
         return (
           <div key={index} className="px-2 mt-4  ">
             <Skeleton className="rounded-2xl h-60 overflow-hidden" />
@@ -38,7 +38,7 @@ export function CourseDetailSkeleton() {
   );
 }
 
-export function LessionSkeleton() {
+export function LessonSkeleton() {
   return (
     <div>
       <Skeleton className="rounded-md w-full h-[200px] md:h-[450px]" />
