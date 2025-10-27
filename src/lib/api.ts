@@ -2,7 +2,7 @@ import axios from "axios";
 import { getCookie } from "./storage";
 
 const HTTP = axios.create({
-  baseURL: `https://dummyjson.com`,
+  baseURL: `https://68ff3856e02b16d1753cfd18.mockapi.io`,
   //  withCredentials: true,
 });
 
